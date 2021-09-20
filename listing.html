@@ -103,7 +103,7 @@
         const url = "http://3.21.225.172:8080/api/";
         $.getJSON(url + "realestate/getByRowAmount?rows=" + record_count)
             .done(function (data) {
-                if (layout_value === "grid") {
+                if (layout_value ===  "grid") {
                     if (max_price === 0 && min_price === 0) {
 
                     } else {
