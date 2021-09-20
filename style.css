@@ -46,11 +46,19 @@
     color: #04395E;
 }
 
-.card-hompage-img{
+.card-hompage-img {
     height: 300px;
     width: 75%;
 }
+
 .about-card {
+    background: #70A288;
+}
+
+.grid-card {
+    background: #70A288;
+}
+.grid-card-body{
     background: #70A288;
 }
 

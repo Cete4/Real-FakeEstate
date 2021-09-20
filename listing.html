@@ -46,9 +46,9 @@
         <div class="col">
             <form>
                 <label for="num_lower">Minimum Price:</label>
-                <input type="text" id="num_lower" placeholder="">
+                <input type="text" id="num_lower" placeholder="" value="0">
                 <label for="num_upper">Maximum Price:</label>
-                <input type="text" id="num_upper" placeholder="">
+                <input type="text" id="num_upper" placeholder="" value="0">
                 <!--TODO: Add error handling for NaN inputs.-->
                 <input type="button" value="Update" onclick="update_data()">
             </form>
@@ -94,39 +94,107 @@
 
 <script>
     function update_data() {
-        const layout_value = document.querySelector('input[name="layout"]:checked').value;
+        let counter = 1;
+        let layout_value = "grid";
+        if (document.getElementById('grid').checked) {
+            //  Do nothing as the grid layout is checked by default
+        } else {
+            // Change the layout value to horizontal
+            layout_value = "horizontal";
+        }
+        console.log(layout_value);
         //TODO: Possibly add a better way to get records than a hard coded number
         const record_count = 50;
+        let content = "";
         const min_price = parseInt(document.getElementById("num_lower").value);
         const max_price = parseInt(document.getElementById("num_upper").value);
 
         const url = "http://3.21.225.172:8080/api/";
         $.getJSON(url + "realestate/getByRowAmount?rows=" + record_count)
             .done(function (data) {
-                if (layout_value ===  "grid") {
+                if (layout_value === "grid") {
                     if (max_price === 0 && min_price === 0) {
+                        for (let i = 0; i < data.length; i++) {
 
+                            if ((i % 3) === 0 || i === 0) {
+                                content += "<div class = 'row'>"
+                                content += "<div class = 'col'>"
+                                content += "<div className='card grid-card'> <img style='height: 250px; width: 250px' className='card-img-top' src='" + url + data[i].imageurl + "' alt='Card image cap'> <div className='card-body grid-card-body'> <h5 className='card-title'>Realtor: " + data[i].fname + "  " + data[i].lname + "</h5> <h6>Listing Price: $" + data[i].price + "</h6> <h6>Square Footage: " + data[i].sqft + " ft²</h6> <h6>Address: " + data[i].street + ", " + data[i].city + " " + data[i].zip + " " + data[i].state + "</h6></div><a href='#' className='btn btn-primary'>Detail Page</a></div></div>";
+                            } else {
+                                content += "<div class = 'col'>"
+                                content += "<div className='card grid-card'> <img style='height: 250px; width: 250px' className='card-img-top' src='" + url + data[i].imageurl + "' alt='Card image cap'> <div className='card-body grid-card-body'> <h5 className='card-title'>Realtor: " + data[i].fname + "  " + data[i].lname + "</h5> <h6>Listing Price: $" + data[i].price + "</h6> <h6>Square Footage: " + data[i].sqft + " ft²</h6> <h6>Address: " + data[i].street + ", " + data[i].city + " " + data[i].zip + " " + data[i].state + "</h6></div><a href='#' className='btn btn-primary'>Detail Page</a></div></div>";
+                            }
+                            if (counter === 3) {
+                                content += "</div>"
+                                counter = 1;
+                            } else {
+                                counter++;
+                            }
+
+                        }
                     } else {
+                        let parsedData = {
+                            table: []
+                        };
+                        for (let i = 0; i < data.length; i++) {
+                            if (data[i].price > min_price && data[i].price < max_price) {
+                                parsedData.table.push(data[i]);
+                                console.log(parsedData);
+                            }
+                        }
+                        for (let i = 0; i < parsedData.table.length; i++) {
 
+                            if ((i % 3) === 0 || i === 0) {
+                                content += "<div class = 'row'>"
+                                content += "<div class = 'col'>"
+                                content += "<div className='card grid-card'> <img style='height: 250px; width: 250px' className='card-img-top' src='" + url + parsedData.table[i].imageurl + "' alt='Card image cap'> <div className='card-body grid-card-body'> <h5 className='card-title'>Realtor: " + parsedData.table[i].fname + "  " + parsedData.table[i].lname + "</h5> <h6>Listing Price: $" + parsedData.table[i].price + "</h6> <h6>Square Footage: " + parsedData.table[i].sqft + " ft²</h6> <h6>Address: " + parsedData.table[i].street + ", " + parsedData.table[i].city + " " + parsedData.table[i].zip + " " + parsedData.table[i].state + "</h6></div><a href='#' className='btn btn-primary'>Detail Page</a></div></div>";
+                            } else {
+                                content += "<div class = 'col'>"
+                                content += "<div className='card grid-card'> <img style='height: 250px; width: 250px' className='card-img-top' src='" + url + parsedData.table[i].imageurl + "' alt='Card image cap'> <div className='card-body grid-card-body'> <h5 className='card-title'>Realtor: " + parsedData.table[i].fname + "  " + parsedData.table[i].lname + "</h5> <h6>Listing Price: $" + parsedData.table[i].price + "</h6> <h6>Square Footage: " + parsedData.table[i].sqft + " ft²</h6> <h6>Address: " + parsedData.table[i].street + ", " + parsedData.table[i].city + " " + parsedData.table[i].zip + " " + parsedData.table[i].state + "</h6></div><a href='#' className='btn btn-primary'>Detail Page</a></div></div>";
+                            }
+                            if (counter === 3) {
+                                content += "</div>"
+                                counter = 1;
+                            } else {
+                                counter++;
+                            }
+
+                        }
                     }
                 } else {
                     if (max_price === 0 && min_price === 0) {
 
+                        for (let i = 0; i < data.length; i++) {
+                            if ((i % 3) === 0 || i === 0) {
+                                content += "<div class = 'row'>"
+                                content += "<div class = 'col'>"
+                                content += "<div class='card mb-3 about-card' style='width: auto;'> <div class='row g-0'> <div class='col-md-4' style='text-align: center'><img width=auto height=250 src='" + url + data[i].imageurl + "'/> </div> <div class='col-md-8'> <div class='card-body'>  <h5 class='card-title'>Realtor:  " + data[i].fname + "  " + data[i].lname + "</h5> <hr> <h6>Listing Price: $" + data[i].price + "</h6> <h6>Square Footage: " + data[i].sqft + " ft²</h6> <h6>Address: " + data[i].street + ", " + data[i].city + " " + data[i].zip + " " + data[i].state + "</h6> </div> </div> </div></div>"
+                            } else {
+                                content += "<div class = 'col'>"
+                                content += "<div class='card mb-3 about-card' style='width: auto;'> <div class='row g-0'> <div class='col-md-4' style='text-align: center'><img width=auto height=250 src='" + url + data[i].imageurl + "'/> </div> <div class='col-md-8'> <div class='card-body'> <h5 class='card-title'>Realtor: " + data[i].fname + "  " + data[i].lname + "</h5> <hr> <h6>Listing Price: $" + data[i].price + "</h6> <h6>Square Footage: " + data[i].sqft + " ft²</h6> <h6>Address: " + data[i].street + ", " + data[i].city + " " + data[i].zip + " " + data[i].state + "</h6></div> </div> </div></div>"
+                            }
+                        }
                     } else {
+                        let parsedData = {
+                            table: []
+                        };
+                        for (let i = 0; i < data.length; i++) {
+                            if (data[i].price > min_price && data[i].price < max_price) {
+                                parsedData.table.push(data[i]);
+                                console.log(parsedData);
+                            }
+                        }
+                        for (let i = 0; i < parsedData.table.length; i++) {
 
-                    }
-                }
-
-                let content = "";
-                for (let i = 0; i < data.length; i++) {
-                    if ((i % 3) === 0 || i === 0) {
-                        content += "<div class = 'row'>"
-                        content += "<div class = 'col'>"
-                        let name = data[i].fname + " " + data[i].lname;
-                        content += "<div class='card mb-3 about-card' style='width: auto;'> <div class='row g-0'> <div class='col-md-4' style='text-align: center'><img width=auto height=250 src='" + url + data[i].imageurl + "'/> </div> <div class='col-md-8'> <div class='card-body'>  <h5 class='card-title'>Realtor:  " + data[i].fname + "  " + data[i].lname + "</h5> <hr> <h6>Listing Price: $" + data[i].price + "</h6> <h6>Square Footage: " + data[i].sqft + " ft²</h6> <h6>Address: " + data[i].street + ", " + data[i].city + " " + data[i].zip + " " + data[i].state + "</h6> </div> </div> </div></div>"
-                    } else {
-                        content += "<div class = 'col'>"
-                        content += "<div class='card mb-3 about-card' style='width: auto;'> <div class='row g-0'> <div class='col-md-4' style='text-align: center'><img width=auto height=250 src='" + url + data[i].imageurl + "'/> </div> <div class='col-md-8'> <div class='card-body'> <h5 class='card-title'>Realtor: " + data[i].fname + "  " + data[i].lname + "</h5> <hr> <h6>Listing Price: $" + data[i].price + "</h6> <h6>Square Footage: " + data[i].sqft + " ft²</h6> <h6>Address: " + data[i].street + ", " + data[i].city + " " + data[i].zip + " " + data[i].state + "</h6></div> </div> </div></div>"
+                            if ((i % 3) === 0 || i === 0) {
+                                content += "<div class = 'row'>"
+                                content += "<div class = 'col'>"
+                                content += "<div class='card mb-3 about-card' style='width: auto;'> <div class='row g-0'> <div class='col-md-4' style='text-align: center'><img width=auto height=250 src='" + url + parsedData.table[i].imageurl + "'/> </div> <div class='col-md-8'> <div class='card-body'> <h5 class='card-title'>Realtor: " + parsedData.table[i].fname + "  " + parsedData.table[i].lname + "</h5> <hr> <h6>Listing Price: $" + parsedData.table[i].price + "</h6> <h6>Square Footage: " + parsedData.table[i].sqft + " ft²</h6> <h6>Address: " + parsedData.table[i].street + ", " + parsedData.table[i].city + " " + parsedData.table[i].zip + " " + parsedData.table[i].state + "</h6></div> </div> </div></div>"
+                            } else {
+                                content += "<div class = 'col'>"
+                                content += "<div class='card mb-3 about-card' style='width: auto;'> <div class='row g-0'> <div class='col-md-4' style='text-align: center'><img width=auto height=250 src='" + url + parsedData.table[i].imageurl + "'/> </div> <div class='col-md-8'> <div class='card-body'> <h5 class='card-title'>Realtor: " + parsedData.table[i].fname + "  " + parsedData.table[i].lname + "</h5> <hr> <h6>Listing Price: $" + parsedData.table[i].price + "</h6> <h6>Square Footage: " + parsedData.table[i].sqft + " ft²</h6> <h6>Address: " + parsedData.table[i].street + ", " + parsedData.table[i].city + " " + parsedData.table[i].zip + " " + parsedData.table[i].state + "</h6></div> </div> </div></div>"
+                            }
+                        }
                     }
                 }
                 $("div.records").html(content);
