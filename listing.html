@@ -40,19 +40,34 @@
         </div>
     </div>
     <div class="row">
+        <br>
+    </div>
+    <div class="row">
         <div class="col">
-            <div>
-                <form>
-                    <label for="num_rec">Number of records:</label>
-                    <input type="text" id="num_rec" placeholder=""><br>
-                    <input type="button" value="Update" onclick="update_data()">
-                </form>
-            </div>
+            <form>
+                <label for="num_lower">Minimum Price:</label>
+                <input type="text" id="num_lower" placeholder="">
+                <label for="num_upper">Maximum Price:</label>
+                <input type="text" id="num_upper" placeholder="">
+                <!--TODO: Add error handling for NaN inputs.-->
+                <input type="button" value="Update" onclick="update_data()">
+            </form>
+            <form style="align-content: flex-end">
+                <input type="radio" id="horizontal" name="layout" value="horizontal">
+                <label for="horizontal">Horizontal</label><br>
+                <input type="radio" id="grid" name="layout" value="grid">
+                <label for="grid">Grid</label><br>
+            </form>
         </div>
     </div>
+
+    <div class="row">
+        <div class="col">
+
+        </div>
+    </div>
+    <!--This is where all the data from the update data will populate.-->
     <div class="records">
-
-
     </div>
 </div>
 
@@ -77,7 +92,12 @@
 
 <script>
     function update_data() {
-        const record_count = parseInt(document.getElementById("num_rec").value);
+        const layout_value = document.getElementById("layout").valueOf();
+        //TODO: Possibly add a better way to get records than a hard coded number
+        const record_count = 50;
+        const min_price = parseInt(document.getElementById("num_lower").value);
+        const max_price = parseInt(document.getElementById("num_upper").value);
+
         const url = "http://3.21.225.172:8080/api/";
         $.getJSON(url + "realestate/getByRowAmount?rows=" + record_count)
             .done(function (data) {
@@ -87,10 +107,10 @@
                         content += "<div class = 'row'>"
                         content += "<div class = 'col'>"
                         let name = data[i].fname + " " + data[i].lname;
-                        content += "<div class='card mb-3 about-card' style='width: auto;'> <div class='row g-0'> <div class='col-md-4' style='text-align: center'><img height=200px width=auto src='" + url + data[i].imageurl + "'/> </div> <div class='col-md-8'> <div class='card-body'>  <h5 class='card-title'>Realtor:  " + data[i].fname + "  " + data[i].lname + "</h5> <hr> <h6>Listing Price: $" + data[i].price + "</h6> <h6>Square Footage: " + data[i].sqft + " ft²</h6> <h6>Address: " + data[i].street + ", " + data[i].city + " " + data[i].state + " " + data[i].zip + "</h6> </div> </div> </div></div>"
+                        content += "<div class='card mb-3 about-card' style='width: auto;'> <div class='row g-0'> <div class='col-md-4' style='text-align: center'><img width=auto height=250 src='" + url + data[i].imageurl + "'/> </div> <div class='col-md-8'> <div class='card-body'>  <h5 class='card-title'>Realtor:  " + data[i].fname + "  " + data[i].lname + "</h5> <hr> <h6>Listing Price: $" + data[i].price + "</h6> <h6>Square Footage: " + data[i].sqft + " ft²</h6> <h6>Address: " + data[i].street + ", " + data[i].city + " " + data[i].zip + " " + data[i].state + "</h6> </div> </div> </div></div>"
                     } else {
                         content += "<div class = 'col'>"
-                        content += "<div class='card mb-3 about-card' style='width: auto;'> <div class='row g-0'> <div class='col-md-4' style='text-align: center'><img height=200px width=auto src='" + url + data[i].imageurl + "'/> </div> <div class='col-md-8'> <div class='card-body'> <h5 class='card-title'>Realtor: " + data[i].fname + "  " + data[i].lname + "</h5> <hr> <h6>Listing Price: $" + data[i].price + "</h6> <h6>Square Footage: " + data[i].sqft + " ft²</h6> <h6>Address: " + data[i].street + ", " + data[i].city + " " + data[i].state + " " + data[i].zip + "</h6></div> </div> </div></div>"
+                        content += "<div class='card mb-3 about-card' style='width: auto;'> <div class='row g-0'> <div class='col-md-4' style='text-align: center'><img width=auto height=250 src='" + url + data[i].imageurl + "'/> </div> <div class='col-md-8'> <div class='card-body'> <h5 class='card-title'>Realtor: " + data[i].fname + "  " + data[i].lname + "</h5> <hr> <h6>Listing Price: $" + data[i].price + "</h6> <h6>Square Footage: " + data[i].sqft + " ft²</h6> <h6>Address: " + data[i].street + ", " + data[i].city + " " + data[i].zip + " " + data[i].state + "</h6></div> </div> </div></div>"
                     }
                 }
                 $("div.records").html(content);
