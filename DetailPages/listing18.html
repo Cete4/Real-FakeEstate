@@ -74,7 +74,7 @@
             .done(function (data) {
                 content += "<div class = 'row'>"
                 content += "<div class = 'col'>"
-                content += "<div class='card mb-3 about-card' style='width: auto;'> <div class='row g-0'> <div class='col-md-4' style='text-align: center'><img width=auto height=250 src='" + url + data[pagenumber].imageurl + "'/> </div> <div class='col-md-8'> <div class='card-body'> <h5 class='card-title'>Realtor: " + data[pagenumber].fname + "  " + data[pagenumber].lname + "</h5> <hr> <h6>Listing Price: $" + data[pagenumber].price + "</h6> <h6>Square Footage: " + data[pagenumber].sqft + " ft²</h6> <h6>Address: " + data[pagenumber].street + ", " + data[pagenumber].city + " " + data[pagenumber].zip + " " + data[pagenumber].state + "</h6></div></div></div></div>"
+                content += "<div class='card mb-3 about-card' style='width: auto;'> <div class='row g-0'> <div class='col-md-4' style='text-align: center'><img width=auto height=250 src='" + url + data[pagenumber].imageurl + "'/> </div> <div class='col-md-8'> <div class='card-body'> <h5 class='card-title'>Realtor: " + data[pagenumber].fname + "  " + data[pagenumber].lname + "</h5> <hr> <h6>Listing Price: $" + data[pagenumber].price + "</h6> <h6>Square Footage: " + data[pagenumber].sqft + " ft²</h6> <h6>Address: " + data[pagenumber].street + ", " + data[pagenumber].city + " " + data[pagenumber].zip + " " + data[pagenumber].state + "</h6> <h6>Year Built: " + data[pagenumber].yrblt + " </h6> <h6>Baths: " + data[pagenumber].baths + "</h6> <h6>Beds: " + data[pagenumber].beds + "</h6></div></div></div></div>"
                 document.getElementById("records").innerHTML = content;
             });
 
