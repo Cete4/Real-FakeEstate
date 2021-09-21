@@ -14,7 +14,6 @@
     <title>Real FakeEstate - Current Listings</title>
 </head>
 <body>
-
 <div class="container-fluid">
     <div class="row">
         <div class="col">
@@ -72,6 +71,10 @@
     <div class="records">
     </div>
 </div>
+<div class="row">
+    <br>
+    <br>
+</div>
 
 <footer>
     <div class="footer">
@@ -112,19 +115,20 @@
         const url = "http://3.21.225.172:8080/api/";
         $.getJSON(url + "realestate/getByRowAmount?rows=" + record_count)
             .done(function (data) {
+                console.log(data);
                 if (layout_value === "grid") {
                     if (max_price === 0 && min_price === 0) {
                         for (let i = 0; i < data.length; i++) {
 
                             if ((i % 3) === 0 || i === 0) {
                                 content += "<div class = 'row'>"
-                                content += "<div class = 'col'>"
+                                content += "<div class = 'col grid-card'>"
                                 let page = "listing" + (i + 1) + ".html";
-                                content += "<div className='card grid-card'> <img style='height: 250px; width: 250px' className='card-img-top' src='" + url + data[i].imageurl + "' alt='Card image cap'> <div className='card-body grid-card-body'> <h5 className='card-title'>Realtor: " + data[i].fname + "  " + data[i].lname + "</h5> <h6>Listing Price: $" + data[i].price + "</h6> <h6>Square Footage: " + data[i].sqft + " ft²</h6> <h6>Address: " + data[i].street + ", " + data[i].city + " " + data[i].zip + " " + data[i].state + "</h6></div><a href='./DetailPages/" + page + "' className='btn btn-primary'>Detail Page</a></div></div>";
+                                content += "<div className='card'> <img style='height: 250px; width: 75%' class='card-img-top card-homepage-img' src='" + url + data[i].imageurl + "' alt='Card image cap'> <div className='card-body grid-card-body'> <h5 className='card-title'>Realtor: " + data[i].fname + "  " + data[i].lname + "</h5> <h6>Listing Price: $" + data[i].price + "</h6> <h6>Square Footage: " + data[i].sqft + " ft²</h6> <h6>Address: " + data[i].street + ", " + data[i].city + " " + data[i].zip + " " + data[i].state + "</h6></div><a href='./DetailPages/" + page + "' class='grid-button'>Detail Page</a></div></div>";
                             } else {
-                                content += "<div class = 'col'>"
+                                content += "<div class = 'col grid-card'>"
                                 let page = "listing" + (i + 1) + ".html";
-                                content += "<div className='card grid-card'> <img style='height: 250px; width: 250px' className='card-img-top' src='" + url + data[i].imageurl + "' alt='Card image cap'> <div className='card-body grid-card-body'> <h5 className='card-title'>Realtor: " + data[i].fname + "  " + data[i].lname + "</h5> <h6>Listing Price: $" + data[i].price + "</h6> <h6>Square Footage: " + data[i].sqft + " ft²</h6> <h6>Address: " + data[i].street + ", " + data[i].city + " " + data[i].zip + " " + data[i].state + "</h6></div><a href='./DetailPages/" + page + "' className='btn btn-primary'>Detail Page</a></div></div>";
+                                content += "<div className='card'> <img style='height: 250px; width: 75%' class='card-img-top card-homepage-img' src='" + url + data[i].imageurl + "' alt='Card image cap'> <div className='card-body grid-card-body'> <h5 className='card-title'>Realtor: " + data[i].fname + "  " + data[i].lname + "</h5> <h6>Listing Price: $" + data[i].price + "</h6> <h6>Square Footage: " + data[i].sqft + " ft²</h6> <h6>Address: " + data[i].street + ", " + data[i].city + " " + data[i].zip + " " + data[i].state + "</h6></div><a href='./DetailPages/" + page + "' class='grid-button'>Detail Page</a></div></div>";
                             }
                             if (counter === 3) {
                                 content += "</div>"
@@ -148,13 +152,13 @@
 
                             if ((i % 3) === 0 || i === 0) {
                                 content += "<div class = 'row'>"
-                                content += "<div class = 'col'>"
+                                content += "<div class = 'col grid-card'>"
                                 let page = "listing" + (i + 1) + ".html";
-                                content += "<div className='card grid-card'> <img style='height: 250px; width: 250px' className='card-img-top' src='" + url + parsedData.table[i].imageurl + "' alt='Card image cap'> <div className='card-body grid-card-body'> <h5 className='card-title'>Realtor: " + parsedData.table[i].fname + "  " + parsedData.table[i].lname + "</h5> <h6>Listing Price: $" + parsedData.table[i].price + "</h6> <h6>Square Footage: " + parsedData.table[i].sqft + " ft²</h6> <h6>Address: " + parsedData.table[i].street + ", " + parsedData.table[i].city + " " + parsedData.table[i].zip + " " + parsedData.table[i].state + "</h6></div><a href='./DetailPages/" + page + "' className='btn btn-primary'>Detail Page</a></div></div>";
+                                content += "<div className='card grid-card'> <img style='height: 250px; width: 75%' className='card-img-top card-homepage-img' src='" + url + parsedData.table[i].imageurl + "' alt='Card image cap'> <div className='card-body grid-card-body'> <h5 className='card-title'>Realtor: " + parsedData.table[i].fname + "  " + parsedData.table[i].lname + "</h5> <h6>Listing Price: $" + parsedData.table[i].price + "</h6> <h6>Square Footage: " + parsedData.table[i].sqft + " ft²</h6> <h6>Address: " + parsedData.table[i].street + ", " + parsedData.table[i].city + " " + parsedData.table[i].zip + " " + parsedData.table[i].state + "</h6></div><a class='grid-button' href='./DetailPages/" + page + "'>Detail Page</a></div></div>";
                             } else {
-                                content += "<div class = 'col'>"
+                                content += "<div class = 'col grid-card'>"
                                 let page = "listing" + (i + 1) + ".html";
-                                content += "<div className='card grid-card'> <img style='height: 250px; width: 250px' className='card-img-top' src='" + url + parsedData.table[i].imageurl + "' alt='Card image cap'> <div className='card-body grid-card-body'> <h5 className='card-title'>Realtor: " + parsedData.table[i].fname + "  " + parsedData.table[i].lname + "</h5> <h6>Listing Price: $" + parsedData.table[i].price + "</h6> <h6>Square Footage: " + parsedData.table[i].sqft + " ft²</h6> <h6>Address: " + parsedData.table[i].street + ", " + parsedData.table[i].city + " " + parsedData.table[i].zip + " " + parsedData.table[i].state + "</h6></div><a href='./DetailPages/" + page + "' className='btn btn-primary'>Detail Page</a></div></div>";
+                                content += "<div className='card grid-card'> <img style='height: 250px; width: 75%' className='card-img-top card-homepage-img' src='" + url + parsedData.table[i].imageurl + "' alt='Card image cap'> <div className='card-body grid-card-body'> <h5 className='card-title'>Realtor: " + parsedData.table[i].fname + "  " + parsedData.table[i].lname + "</h5> <h6>Listing Price: $" + parsedData.table[i].price + "</h6> <h6>Square Footage: " + parsedData.table[i].sqft + " ft²</h6> <h6>Address: " + parsedData.table[i].street + ", " + parsedData.table[i].city + " " + parsedData.table[i].zip + " " + parsedData.table[i].state + "</h6></div><a class='grid-button' href='./DetailPages/" + page + "'>Detail Page</a></div></div>";
                             }
                             if (counter === 3) {
                                 content += "</div>"
@@ -173,11 +177,11 @@
                                 content += "<div class = 'row'>"
                                 content += "<div class = 'col'>"
                                 let page = "listing" + (i + 1) + ".html";
-                                content += "<div class='card mb-3 about-card' style='width: auto;'> <div class='row g-0'> <div class='col-md-4' style='text-align: center'><img width=auto height=250 src='" + url + data[i].imageurl + "'/> </div> <div class='col-md-8'> <div class='card-body'>  <h5 class='card-title'>Realtor:  " + data[i].fname + "  " + data[i].lname + "</h5> <hr> <h6>Listing Price: $" + data[i].price + "</h6> <h6>Square Footage: " + data[i].sqft + " ft²</h6> <h6>Address: " + data[i].street + ", " + data[i].city + " " + data[i].zip + " " + data[i].state + "</h6> <a href='./DetailPages/" + page + "' className='btn btn-primary'>Detail Page</a> </div> </div> </div></div>"
+                                content += "<div class='card mb-3 about-card' style='width: auto;'> <div class='row g-0'> <div class='col-md-4' style='text-align: center'><img width=auto height=250 src='" + url + data[i].imageurl + "'/> </div> <div class='col-md-8'> <div class='card-body'>  <h5 class='card-title'>Realtor:  " + data[i].fname + "  " + data[i].lname + "</h5> <hr> <h6>Listing Price: $" + data[i].price + "</h6> <h6>Square Footage: " + data[i].sqft + " ft²</h6> <h6>Address: " + data[i].street + ", " + data[i].city + " " + data[i].zip + " " + data[i].state + "</h6> <a href='./DetailPages/" + page + "' class='grid-button'>Detail Page</a> </div> </div> </div></div>"
                             } else {
                                 content += "<div class = 'col'>"
                                 let page = "listing" + (i + 1) + ".html";
-                                content += "<div class='card mb-3 about-card' style='width: auto;'> <div class='row g-0'> <div class='col-md-4' style='text-align: center'><img width=auto height=250 src='" + url + data[i].imageurl + "'/> </div> <div class='col-md-8'> <div class='card-body'> <h5 class='card-title'>Realtor: " + data[i].fname + "  " + data[i].lname + "</h5> <hr> <h6>Listing Price: $" + data[i].price + "</h6> <h6>Square Footage: " + data[i].sqft + " ft²</h6> <h6>Address: " + data[i].street + ", " + data[i].city + " " + data[i].zip + " " + data[i].state + "</h6> <a href='./DetailPages/" + page + "' className='btn btn-primary'>Detail Page</a> </div> </div> </div></div>"
+                                content += "<div class='card mb-3 about-card' style='width: auto;'> <div class='row g-0'> <div class='col-md-4' style='text-align: center'><img width=auto height=250 src='" + url + data[i].imageurl + "'/> </div> <div class='col-md-8'> <div class='card-body'> <h5 class='card-title'>Realtor: " + data[i].fname + "  " + data[i].lname + "</h5> <hr> <h6>Listing Price: $" + data[i].price + "</h6> <h6>Square Footage: " + data[i].sqft + " ft²</h6> <h6>Address: " + data[i].street + ", " + data[i].city + " " + data[i].zip + " " + data[i].state + "</h6> <a href='./DetailPages/" + page + "' class='grid-button'>Detail Page</a> </div> </div> </div></div>"
                             }
                         }
                     } else {
@@ -196,11 +200,11 @@
                                 content += "<div class = 'row'>"
                                 content += "<div class = 'col'>"
                                 let page = "listing" + (i + 1) + ".html";
-                                content += "<div class='card mb-3 about-card' style='width: auto;'> <div class='row g-0'> <div class='col-md-4' style='text-align: center'><img width=auto height=250 src='" + url + parsedData.table[i].imageurl + "'/> </div> <div class='col-md-8'> <div class='card-body'> <h5 class='card-title'>Realtor: " + parsedData.table[i].fname + "  " + parsedData.table[i].lname + "</h5> <hr> <h6>Listing Price: $" + parsedData.table[i].price + "</h6> <h6>Square Footage: " + parsedData.table[i].sqft + " ft²</h6> <h6>Address: " + parsedData.table[i].street + ", " + parsedData.table[i].city + " " + parsedData.table[i].zip + " " + parsedData.table[i].state + "</h6> <a href='./DetailPages/" + page + "' className='btn btn-primary'>Detail Page</a></div> </div> </div></div>"
+                                content += "<div class='card mb-3 about-card' style='width: auto;'> <div class='row g-0'> <div class='col-md-4' style='text-align: center'><img width=auto height=250 src='" + url + parsedData.table[i].imageurl + "'/> </div> <div class='col-md-8'> <div class='card-body'> <h5 class='card-title'>Realtor: " + parsedData.table[i].fname + "  " + parsedData.table[i].lname + "</h5> <hr> <h6>Listing Price: $" + parsedData.table[i].price + "</h6> <h6>Square Footage: " + parsedData.table[i].sqft + " ft²</h6> <h6>Address: " + parsedData.table[i].street + ", " + parsedData.table[i].city + " " + parsedData.table[i].zip + " " + parsedData.table[i].state + "</h6> <a href='./DetailPages/" + page + "' class='grid-button'>Detail Page</a></div> </div> </div></div>"
                             } else {
                                 content += "<div class = 'col'>"
                                 let page = "listing" + (i + 1) + ".html";
-                                content += "<div class='card mb-3 about-card' style='width: auto;'> <div class='row g-0'> <div class='col-md-4' style='text-align: center'><img width=auto height=250 src='" + url + parsedData.table[i].imageurl + "'/> </div> <div class='col-md-8'> <div class='card-body'> <h5 class='card-title'>Realtor: " + parsedData.table[i].fname + "  " + parsedData.table[i].lname + "</h5> <hr> <h6>Listing Price: $" + parsedData.table[i].price + "</h6> <h6>Square Footage: " + parsedData.table[i].sqft + " ft²</h6> <h6>Address: " + parsedData.table[i].street + ", " + parsedData.table[i].city + " " + parsedData.table[i].zip + " " + parsedData.table[i].state + "</h6> <a href='./DetailPages/" + page + "' className='btn btn-primary'>Detail Page</a></div> </div> </div></div>"
+                                content += "<div class='card mb-3 about-card' style='width: auto;'> <div class='row g-0'> <div class='col-md-4' style='text-align: center'><img width=auto height=250 src='" + url + parsedData.table[i].imageurl + "'/> </div> <div class='col-md-8'> <div class='card-body'> <h5 class='card-title'>Realtor: " + parsedData.table[i].fname + "  " + parsedData.table[i].lname + "</h5> <hr> <h6>Listing Price: $" + parsedData.table[i].price + "</h6> <h6>Square Footage: " + parsedData.table[i].sqft + " ft²</h6> <h6>Address: " + parsedData.table[i].street + ", " + parsedData.table[i].city + " " + parsedData.table[i].zip + " " + parsedData.table[i].state + "</h6> <a href='./DetailPages/" + page + "' class='grid-button'>Detail Page</a></div> </div> </div></div>"
                             }
                         }
                     }
